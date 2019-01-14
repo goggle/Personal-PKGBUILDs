@@ -1,0 +1,23 @@
+# Maintainer: Alexander Seiler <seileralex@gmail.com>
+pkgname=zattoo-channel-url-finder
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="A tool to easily get the URL of a TV channel from Zattoo."
+arch=('any')
+url="https://github.com/goggle/zattoo-channel-url-finder"
+license=('GPL')
+depends=('python' 'python-fuzzywuzzy')
+makedepends=('python-setuptools')
+optdepends=('python-levenshtein: provides a 4-10x speedup in string matching')
+source=(https://github.com/goggle/$pkgname/archive/v$pkgver.tar.gz)
+sha256sums=('0d6964f2702961251f69d8103512cb81765e1cc847814404f10399eea16863fa')
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    python setup.py build
+}
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    python setup.py install --root="${pkgdir}/" --optimize=1
+}
